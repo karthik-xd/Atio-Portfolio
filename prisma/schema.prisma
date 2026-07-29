@@ -1,78 +1,86 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
-  provider = "prisma-client"
+  provider = "prisma-client-js"
   output   = "../src/generated/prisma"
 }
 
 datasource db {
   provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum ItemCategory {
+  PROJECT
+  RESEARCH_PAPER
+}
+
+enum AcademicType {
+  EDUCATION
+  PUBLICATION
 }
 
 model Item {
-  id          Int      @id @default(autoincrement())
-  title       String
-  description String
-  category    String   // 'Project' or 'Research Paper'
+  id           Int          @id @default(autoincrement())
+  title        String
+  description  String
+  category     ItemCategory @default(PROJECT)
   externalLink String?
-  mediaUrl    String?  // Path to uploaded video or image
-  createdAt   DateTime @default(now())
+  mediaUrl     String?      // Path to uploaded video or image
+  createdAt    DateTime     @default(now())
 }
 
 model Profile {
-  id                Int     @id @default(1)
-  name              String  @default("Creator")
-  subtitle          String  @default("Welcome to my digital workspace. Explore my latest projects and research papers.")
-  photoUrl          String?
-  linkedinUrl       String?
-  githubUrl         String?
-  twitterUrl        String?
-  email             String?
-  resumeUrl         String?
-  themeBgColor      String?
-  themePrimaryColor String?
-  bgImageUrl        String?
-  profileSize       Int?    @default(250)
-  glowSpread        Int?    @default(30)
-  glowOpacity       Float?  @default(0.3)
-  themeSecondaryColor String?
-  themeAccentColor    String?
-  ambientGlowSize     Int?    @default(400)
-  ambientGlowOpacity  Float?  @default(0.15)
-  ambientGlowColor    String?
-  ringPadding         Int?    @default(5)
-  photoContrast       Float?  @default(1.0)
-  bgMediaOpacity      Float?  @default(0.6)
-  bgOverlayOpacity    Float?  @default(1.0)
-  
-  heroPrimaryBtnBg      String?
-  heroPrimaryBtnHover   String?
-  heroPrimaryBtnText    String?
-  
-  heroSecondaryBtnBg    String?
+  id                   Int     @id @default(1)
+  name                 String  @default("Creator")
+  subtitle             String  @default("Welcome to my digital workspace. Explore my latest projects and research papers.")
+  photoUrl             String?
+  linkedinUrl          String?
+  githubUrl            String?
+  twitterUrl           String?
+  email                String?
+  resumeUrl            String?
+  themeBgColor         String?
+  themePrimaryColor    String?
+  bgImageUrl           String?
+  profileSize          Int?    @default(250)
+  glowSpread           Int?    @default(30)
+  glowOpacity          Float?  @default(0.3)
+  themeSecondaryColor  String?
+  themeAccentColor     String?
+  ambientGlowSize      Int?    @default(400)
+  ambientGlowOpacity   Float?  @default(0.15)
+  ambientGlowColor     String?
+  ringPadding          Int?    @default(5)
+  photoContrast        Float?  @default(1.0)
+  bgMediaOpacity       Float?  @default(0.6)
+  bgOverlayOpacity     Float?  @default(1.0)
+
+  heroPrimaryBtnBg     String?
+  heroPrimaryBtnHover  String?
+  heroPrimaryBtnText   String?
+
+  heroSecondaryBtnBg   String?
   heroSecondaryBtnHover String?
-  heroSecondaryBtnText  String?
-  
-  filterBtnBg           String?
-  filterBtnText         String?
-  filterBtnHoverBg      String?
-  filterBtnHoverText    String?
-  
-  socialIconBg          String?
-  socialIconColor       String?
-  socialIconHoverBg     String?
-  socialIconHoverColor  String?
+  heroSecondaryBtnText String?
+
+  filterBtnBg          String?
+  filterBtnText        String?
+  filterBtnHoverBg     String?
+  filterBtnHoverText   String?
+
+  socialIconBg         String?
+  socialIconColor      String?
+  socialIconHoverBg    String?
+  socialIconHoverColor String?
 }
 
 model AcademicItem {
-  id          Int      @id @default(autoincrement())
+  id          Int          @id @default(autoincrement())
   title       String
   institution String
   date        String
   description String
-  type        String   // 'Education' or 'Publication'
+  type        AcademicType @default(EDUCATION)
   link        String?
   authors     String?
-  createdAt   DateTime @default(now())
+  createdAt   DateTime     @default(now())
 }
