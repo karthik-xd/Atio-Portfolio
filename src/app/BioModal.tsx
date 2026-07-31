@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { FaUser, FaTimes } from 'react-icons/fa';
+import { FaSmile, FaTimes } from 'react-icons/fa';
 
 export default function BioModal({ fullBio }: { fullBio: string }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,7 +14,7 @@ export default function BioModal({ fullBio }: { fullBio: string }) {
         title="View Full Bio"
         style={{ cursor: 'pointer', width: 'auto', padding: '0 1.25rem', borderRadius: '30px', gap: '0.5rem', fontWeight: 600, fontFamily: 'inherit' }}
       >
-        <FaUser size={16} /> View Bio
+        <FaSmile size={16} /> View Bio
       </button>
 
       {isOpen && (

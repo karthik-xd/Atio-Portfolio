@@ -3,8 +3,11 @@ import "./globals.css";
 import { prisma } from '@/lib/prisma';
 
 export const metadata: Metadata = {
-  title: "Personal Portfolio",
-  description: "A showcase of my projects and research papers.",
+  title: "Karthik's Portfolio",
+  description: "Karthikeyan MP — Developer, Researcher & Innovator. Explore my projects, research papers, and hackathon achievements.",
+  icons: {
+    icon: '/icon.svg',
+  },
 };
 
 export const dynamic = 'force-dynamic';

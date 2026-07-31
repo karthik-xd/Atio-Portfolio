@@ -73,7 +73,7 @@ export default function AdminDashboard() {
     name: '', subtitle: '', linkedinUrl: '', githubUrl: '',
     twitterUrl: '', email: '', photoUrl: null, resumeUrl: null,
     themeBgColor: null, themePrimaryColor: null, themeSecondaryColor: null, themeAccentColor: null, bgImageUrl: null,
-    profileSize: 250, glowSpread: 30, glowOpacity: 0.3, ambientGlowSize: 400, ambientGlowOpacity: 0.15, ambientGlowColor: null, ringPadding: 5, photoContrast: 1.0, 
+    profileSize: 250, glowSpread: 30, glowOpacity: 0.3, ambientGlowSize: 400, ambientGlowOpacity: 0.15, ambientGlowColor: null, ringPadding: 5, photoContrast: 1.0, bgMediaOpacity: 0.6, bgOverlayOpacity: 1.0,
     heroPrimaryBtnBg: null, heroPrimaryBtnHover: null, heroPrimaryBtnText: null,
     heroSecondaryBtnBg: null, heroSecondaryBtnHover: null, heroSecondaryBtnText: null,
     filterBtnBg: null, filterBtnText: null, filterBtnHoverBg: null, filterBtnHoverText: null,
@@ -130,6 +130,8 @@ export default function AdminDashboard() {
         ambientGlowColor: data.ambientGlowColor || null,
         ringPadding: data.ringPadding ?? 5,
         photoContrast: data.photoContrast ?? 1.0,
+        bgMediaOpacity: data.bgMediaOpacity ?? 0.6,
+        bgOverlayOpacity: data.bgOverlayOpacity ?? 1.0,
         heroPrimaryBtnBg: data.heroPrimaryBtnBg || null,
         heroPrimaryBtnHover: data.heroPrimaryBtnHover || null,
         heroPrimaryBtnText: data.heroPrimaryBtnText || null,
@@ -163,7 +165,7 @@ export default function AdminDashboard() {
   }
 
   // Handle single field update for Profile
-  async function saveProfileField(field: keyof Profile, value: string | null | File) {
+  async function saveProfileField(field: keyof Profile | 'photo' | 'bgImage' | 'resume', value: string | null | File) {
     setLoading(true);
     const formData = new FormData();
     

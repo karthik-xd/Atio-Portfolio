@@ -1,6 +1,6 @@
 import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
-import { FaArrowLeft, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaSmile, FaExternalLinkAlt } from 'react-icons/fa';
 import './academic.css';
 
 export const dynamic = 'force-dynamic';
@@ -17,7 +17,7 @@ export default async function AcademicProfile() {
     <main className="academic-main">
       <div className="academic-header">
         <Link href="/" className="back-link">
-          <FaArrowLeft size={18} /> Back to Home
+          <FaSmile size={18} /> Back to Home
         </Link>
         <h1><span className="gradient-text">Academic</span> Profile</h1>
         <p className="hero-subtitle" style={{ marginTop: '1rem' }}>
