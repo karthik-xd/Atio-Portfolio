@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/prisma';
+import { AcademicType } from '@/generated/prisma';
 import Link from 'next/link';
 import { FaSmile, FaExternalLinkAlt } from 'react-icons/fa';
 import './academic.css';
@@ -10,8 +11,8 @@ export default async function AcademicProfile() {
     orderBy: { createdAt: 'desc' },
   });
 
-  const education = academicItems.filter((i) => i.type === 'Education');
-  const publications = academicItems.filter((i) => i.type === 'Publication');
+  const education = academicItems.filter((i) => i.type === AcademicType.EDUCATION);
+  const publications = academicItems.filter((i) => i.type === AcademicType.PUBLICATION);
 
   return (
     <main className="academic-main">
