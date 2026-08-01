@@ -94,6 +94,7 @@ export const ProfileScalarFieldEnum = {
   resumeUrl: 'resumeUrl',
   themeBgColor: 'themeBgColor',
   themePrimaryColor: 'themePrimaryColor',
+  greetingColor: 'greetingColor',
   bgImageUrl: 'bgImageUrl',
   profileSize: 'profileSize',
   glowSpread: 'glowSpread',

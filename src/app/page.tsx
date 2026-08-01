@@ -29,7 +29,11 @@ export default async function Home() {
           <div className="hero-content">
             <h1 className="hero-title">
               {profile.name
-                ? <>Hi, I&apos;m <span className="gradient-text">{profile.name}</span></>
+                ? <>
+                    <span style={{ color: profile.greetingColor || 'inherit' }}>Hi, I&apos;m</span>
+                    <br />
+                    <span className="gradient-text">{profile.name}</span>
+                  </>
                 : <span className="gradient-text">Welcome</span>
               }
             </h1>

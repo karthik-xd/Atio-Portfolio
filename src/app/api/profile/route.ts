@@ -55,6 +55,10 @@ export async function POST(request: Request) {
     if (themePrimaryColor !== undefined && themePrimaryColor !== '') updates.themePrimaryColor = themePrimaryColor;
     else if (formData.has('themePrimaryColor') && themePrimaryColor === '') updates.themePrimaryColor = null;
 
+    const greetingColor = (formData.get('greetingColor') as string)?.trim();
+    if (greetingColor !== undefined && greetingColor !== '') updates.greetingColor = greetingColor;
+    else if (formData.has('greetingColor') && greetingColor === '') updates.greetingColor = null;
+
     const profileSize = formData.get('profileSize');
     if (profileSize !== null) updates.profileSize = parseInt(profileSize as string, 10);
 

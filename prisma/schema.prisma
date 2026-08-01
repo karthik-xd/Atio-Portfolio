@@ -39,6 +39,7 @@ model Profile {
   resumeUrl            String?
   themeBgColor         String?
   themePrimaryColor    String?
+  greetingColor        String?
   bgImageUrl           String?
   profileSize          Int?    @default(250)
   glowSpread           Int?    @default(30)

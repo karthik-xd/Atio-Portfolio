@@ -64,6 +64,7 @@ export type ProfileMinAggregateOutputType = {
   resumeUrl: string | null
   themeBgColor: string | null
   themePrimaryColor: string | null
+  greetingColor: string | null
   bgImageUrl: string | null
   profileSize: number | null
   glowSpread: number | null
@@ -105,6 +106,7 @@ export type ProfileMaxAggregateOutputType = {
   resumeUrl: string | null
   themeBgColor: string | null
   themePrimaryColor: string | null
+  greetingColor: string | null
   bgImageUrl: string | null
   profileSize: number | null
   glowSpread: number | null
@@ -146,6 +148,7 @@ export type ProfileCountAggregateOutputType = {
   resumeUrl: number
   themeBgColor: number
   themePrimaryColor: number
+  greetingColor: number
   bgImageUrl: number
   profileSize: number
   glowSpread: number
@@ -215,6 +218,7 @@ export type ProfileMinAggregateInputType = {
   resumeUrl?: true
   themeBgColor?: true
   themePrimaryColor?: true
+  greetingColor?: true
   bgImageUrl?: true
   profileSize?: true
   glowSpread?: true
@@ -256,6 +260,7 @@ export type ProfileMaxAggregateInputType = {
   resumeUrl?: true
   themeBgColor?: true
   themePrimaryColor?: true
+  greetingColor?: true
   bgImageUrl?: true
   profileSize?: true
   glowSpread?: true
@@ -297,6 +302,7 @@ export type ProfileCountAggregateInputType = {
   resumeUrl?: true
   themeBgColor?: true
   themePrimaryColor?: true
+  greetingColor?: true
   bgImageUrl?: true
   profileSize?: true
   glowSpread?: true
@@ -425,6 +431,7 @@ export type ProfileGroupByOutputType = {
   resumeUrl: string | null
   themeBgColor: string | null
   themePrimaryColor: string | null
+  greetingColor: string | null
   bgImageUrl: string | null
   profileSize: number | null
   glowSpread: number | null
@@ -489,6 +496,7 @@ export type ProfileWhereInput = {
   resumeUrl?: Prisma.StringNullableFilter<"Profile"> | string | null
   themeBgColor?: Prisma.StringNullableFilter<"Profile"> | string | null
   themePrimaryColor?: Prisma.StringNullableFilter<"Profile"> | string | null
+  greetingColor?: Prisma.StringNullableFilter<"Profile"> | string | null
   bgImageUrl?: Prisma.StringNullableFilter<"Profile"> | string | null
   profileSize?: Prisma.IntNullableFilter<"Profile"> | number | null
   glowSpread?: Prisma.IntNullableFilter<"Profile"> | number | null
@@ -530,6 +538,7 @@ export type ProfileOrderByWithRelationInput = {
   resumeUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   themeBgColor?: Prisma.SortOrderInput | Prisma.SortOrder
   themePrimaryColor?: Prisma.SortOrderInput | Prisma.SortOrder
+  greetingColor?: Prisma.SortOrderInput | Prisma.SortOrder
   bgImageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   profileSize?: Prisma.SortOrderInput | Prisma.SortOrder
   glowSpread?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -574,6 +583,7 @@ export type ProfileWhereUniqueInput = Prisma.AtLeast<{
   resumeUrl?: Prisma.StringNullableFilter<"Profile"> | string | null
   themeBgColor?: Prisma.StringNullableFilter<"Profile"> | string | null
   themePrimaryColor?: Prisma.StringNullableFilter<"Profile"> | string | null
+  greetingColor?: Prisma.StringNullableFilter<"Profile"> | string | null
   bgImageUrl?: Prisma.StringNullableFilter<"Profile"> | string | null
   profileSize?: Prisma.IntNullableFilter<"Profile"> | number | null
   glowSpread?: Prisma.IntNullableFilter<"Profile"> | number | null
@@ -615,6 +625,7 @@ export type ProfileOrderByWithAggregationInput = {
   resumeUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   themeBgColor?: Prisma.SortOrderInput | Prisma.SortOrder
   themePrimaryColor?: Prisma.SortOrderInput | Prisma.SortOrder
+  greetingColor?: Prisma.SortOrderInput | Prisma.SortOrder
   bgImageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   profileSize?: Prisma.SortOrderInput | Prisma.SortOrder
   glowSpread?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -664,6 +675,7 @@ export type ProfileScalarWhereWithAggregatesInput = {
   resumeUrl?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
   themeBgColor?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
   themePrimaryColor?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
+  greetingColor?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
   bgImageUrl?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
   profileSize?: Prisma.IntNullableWithAggregatesFilter<"Profile"> | number | null
   glowSpread?: Prisma.IntNullableWithAggregatesFilter<"Profile"> | number | null
@@ -705,6 +717,7 @@ export type ProfileCreateInput = {
   resumeUrl?: string | null
   themeBgColor?: string | null
   themePrimaryColor?: string | null
+  greetingColor?: string | null
   bgImageUrl?: string | null
   profileSize?: number | null
   glowSpread?: number | null
@@ -746,6 +759,7 @@ export type ProfileUncheckedCreateInput = {
   resumeUrl?: string | null
   themeBgColor?: string | null
   themePrimaryColor?: string | null
+  greetingColor?: string | null
   bgImageUrl?: string | null
   profileSize?: number | null
   glowSpread?: number | null
@@ -787,6 +801,7 @@ export type ProfileUpdateInput = {
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   themeBgColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   themePrimaryColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  greetingColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bgImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   glowSpread?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -828,6 +843,7 @@ export type ProfileUncheckedUpdateInput = {
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   themeBgColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   themePrimaryColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  greetingColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bgImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   glowSpread?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -869,6 +885,7 @@ export type ProfileCreateManyInput = {
   resumeUrl?: string | null
   themeBgColor?: string | null
   themePrimaryColor?: string | null
+  greetingColor?: string | null
   bgImageUrl?: string | null
   profileSize?: number | null
   glowSpread?: number | null
@@ -910,6 +927,7 @@ export type ProfileUpdateManyMutationInput = {
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   themeBgColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   themePrimaryColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  greetingColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bgImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   glowSpread?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -951,6 +969,7 @@ export type ProfileUncheckedUpdateManyInput = {
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   themeBgColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   themePrimaryColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  greetingColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bgImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   glowSpread?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -992,6 +1011,7 @@ export type ProfileCountOrderByAggregateInput = {
   resumeUrl?: Prisma.SortOrder
   themeBgColor?: Prisma.SortOrder
   themePrimaryColor?: Prisma.SortOrder
+  greetingColor?: Prisma.SortOrder
   bgImageUrl?: Prisma.SortOrder
   profileSize?: Prisma.SortOrder
   glowSpread?: Prisma.SortOrder
@@ -1046,6 +1066,7 @@ export type ProfileMaxOrderByAggregateInput = {
   resumeUrl?: Prisma.SortOrder
   themeBgColor?: Prisma.SortOrder
   themePrimaryColor?: Prisma.SortOrder
+  greetingColor?: Prisma.SortOrder
   bgImageUrl?: Prisma.SortOrder
   profileSize?: Prisma.SortOrder
   glowSpread?: Prisma.SortOrder
@@ -1087,6 +1108,7 @@ export type ProfileMinOrderByAggregateInput = {
   resumeUrl?: Prisma.SortOrder
   themeBgColor?: Prisma.SortOrder
   themePrimaryColor?: Prisma.SortOrder
+  greetingColor?: Prisma.SortOrder
   bgImageUrl?: Prisma.SortOrder
   profileSize?: Prisma.SortOrder
   glowSpread?: Prisma.SortOrder
@@ -1159,6 +1181,7 @@ export type ProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   resumeUrl?: boolean
   themeBgColor?: boolean
   themePrimaryColor?: boolean
+  greetingColor?: boolean
   bgImageUrl?: boolean
   profileSize?: boolean
   glowSpread?: boolean
@@ -1200,6 +1223,7 @@ export type ProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   resumeUrl?: boolean
   themeBgColor?: boolean
   themePrimaryColor?: boolean
+  greetingColor?: boolean
   bgImageUrl?: boolean
   profileSize?: boolean
   glowSpread?: boolean
@@ -1241,6 +1265,7 @@ export type ProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   resumeUrl?: boolean
   themeBgColor?: boolean
   themePrimaryColor?: boolean
+  greetingColor?: boolean
   bgImageUrl?: boolean
   profileSize?: boolean
   glowSpread?: boolean
@@ -1282,6 +1307,7 @@ export type ProfileSelectScalar = {
   resumeUrl?: boolean
   themeBgColor?: boolean
   themePrimaryColor?: boolean
+  greetingColor?: boolean
   bgImageUrl?: boolean
   profileSize?: boolean
   glowSpread?: boolean
@@ -1311,7 +1337,7 @@ export type ProfileSelectScalar = {
   socialIconHoverColor?: boolean
 }
 
-export type ProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "subtitle" | "photoUrl" | "linkedinUrl" | "githubUrl" | "twitterUrl" | "email" | "resumeUrl" | "themeBgColor" | "themePrimaryColor" | "bgImageUrl" | "profileSize" | "glowSpread" | "glowOpacity" | "themeSecondaryColor" | "themeAccentColor" | "ambientGlowSize" | "ambientGlowOpacity" | "ambientGlowColor" | "ringPadding" | "photoContrast" | "bgMediaOpacity" | "bgOverlayOpacity" | "heroPrimaryBtnBg" | "heroPrimaryBtnHover" | "heroPrimaryBtnText" | "heroSecondaryBtnBg" | "heroSecondaryBtnHover" | "heroSecondaryBtnText" | "filterBtnBg" | "filterBtnText" | "filterBtnHoverBg" | "filterBtnHoverText" | "socialIconBg" | "socialIconColor" | "socialIconHoverBg" | "socialIconHoverColor", ExtArgs["result"]["profile"]>
+export type ProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "subtitle" | "photoUrl" | "linkedinUrl" | "githubUrl" | "twitterUrl" | "email" | "resumeUrl" | "themeBgColor" | "themePrimaryColor" | "greetingColor" | "bgImageUrl" | "profileSize" | "glowSpread" | "glowOpacity" | "themeSecondaryColor" | "themeAccentColor" | "ambientGlowSize" | "ambientGlowOpacity" | "ambientGlowColor" | "ringPadding" | "photoContrast" | "bgMediaOpacity" | "bgOverlayOpacity" | "heroPrimaryBtnBg" | "heroPrimaryBtnHover" | "heroPrimaryBtnText" | "heroSecondaryBtnBg" | "heroSecondaryBtnHover" | "heroSecondaryBtnText" | "filterBtnBg" | "filterBtnText" | "filterBtnHoverBg" | "filterBtnHoverText" | "socialIconBg" | "socialIconColor" | "socialIconHoverBg" | "socialIconHoverColor", ExtArgs["result"]["profile"]>
 
 export type $ProfilePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Profile"
@@ -1328,6 +1354,7 @@ export type $ProfilePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     resumeUrl: string | null
     themeBgColor: string | null
     themePrimaryColor: string | null
+    greetingColor: string | null
     bgImageUrl: string | null
     profileSize: number | null
     glowSpread: number | null
@@ -1789,6 +1816,7 @@ export interface ProfileFieldRefs {
   readonly resumeUrl: Prisma.FieldRef<"Profile", 'String'>
   readonly themeBgColor: Prisma.FieldRef<"Profile", 'String'>
   readonly themePrimaryColor: Prisma.FieldRef<"Profile", 'String'>
+  readonly greetingColor: Prisma.FieldRef<"Profile", 'String'>
   readonly bgImageUrl: Prisma.FieldRef<"Profile", 'String'>
   readonly profileSize: Prisma.FieldRef<"Profile", 'Int'>
   readonly glowSpread: Prisma.FieldRef<"Profile", 'Int'>

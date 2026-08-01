@@ -15,6 +15,7 @@ type Profile = {
   resumeUrl: string | null;
   themeBgColor: string | null;
   themePrimaryColor: string | null;
+  greetingColor: string | null;
   themeSecondaryColor: string | null;
   themeAccentColor: string | null;
   bgImageUrl: string | null;
@@ -73,7 +74,7 @@ export default function AdminDashboard() {
   const [profile, setProfile] = useState<Profile>({
     name: '', subtitle: '', linkedinUrl: '', githubUrl: '',
     twitterUrl: '', email: '', photoUrl: null, resumeUrl: null,
-    themeBgColor: null, themePrimaryColor: null, themeSecondaryColor: null, themeAccentColor: null, bgImageUrl: null,
+    themeBgColor: null, themePrimaryColor: null, greetingColor: null, themeSecondaryColor: null, themeAccentColor: null, bgImageUrl: null,
     profileSize: 250, glowSpread: 30, glowOpacity: 0.3, ambientGlowSize: 400, ambientGlowOpacity: 0.15, ambientGlowColor: null, ringPadding: 5, photoContrast: 1.0, bgMediaOpacity: 0.6, bgOverlayOpacity: 1.0,
     heroPrimaryBtnBg: null, heroPrimaryBtnHover: null, heroPrimaryBtnText: null,
     heroSecondaryBtnBg: null, heroSecondaryBtnHover: null, heroSecondaryBtnText: null,
@@ -120,6 +121,7 @@ export default function AdminDashboard() {
         resumeUrl: data.resumeUrl || null,
         themeBgColor: data.themeBgColor || null,
         themePrimaryColor: data.themePrimaryColor || null,
+        greetingColor: data.greetingColor || null,
         themeSecondaryColor: data.themeSecondaryColor || null,
         themeAccentColor: data.themeAccentColor || null,
         bgImageUrl: data.bgImageUrl || null,
@@ -553,6 +555,7 @@ export default function AdminDashboard() {
             <div className="whatsapp-fields-list">
               <div className="section-divider"><FaPalette /> Tri-Color Theme Sandbox</div>
               {renderEditableField('themeBgColor', 'Background (Dark)', 'color')}
+              {renderEditableField('greetingColor', 'Greeting Text Color', 'color')}
               {renderEditableField('themePrimaryColor', 'Primary Color', 'color')}
               {renderEditableField('themeSecondaryColor', 'Secondary Color (Gradient Texts)', 'color')}
               {renderEditableField('themeAccentColor', 'Accent Color (Photo Ring Gradient)', 'color')}

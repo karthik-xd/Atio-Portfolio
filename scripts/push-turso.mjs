@@ -34,6 +34,7 @@ const statements = [
     "resumeUrl" TEXT,
     "themeBgColor" TEXT,
     "themePrimaryColor" TEXT,
+    "greetingColor" TEXT,
     "bgImageUrl" TEXT,
     "profileSize" INTEGER DEFAULT 250,
     "glowSpread" INTEGER DEFAULT 30,
