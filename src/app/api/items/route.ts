@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { ItemCategory } from '@/generated/prisma';
+import { ItemCategory } from '@/generated/prisma/client';
 import { writeFile, mkdir } from 'fs/promises';
 import { join } from 'path';
 

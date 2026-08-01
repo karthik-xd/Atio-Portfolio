@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/prisma';
-import { AcademicType, type AcademicItem } from '@/generated/prisma';
+import { AcademicType, type AcademicItem } from '@/generated/prisma/client';
 import Link from 'next/link';
 import { FaSmile, FaExternalLinkAlt } from 'react-icons/fa';
 import './academic.css';
