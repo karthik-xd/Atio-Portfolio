@@ -1,12 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { writeFile, mkdir } from 'fs/promises';
-import { join } from 'path';
 
 export const dynamic = 'force-dynamic';
-
-// Vercel serverless has a read-only filesystem — file writes only work locally
-const canWriteFiles = process.env.VERCEL !== '1';
 
 export async function GET() {
   try {
@@ -155,36 +150,34 @@ export async function POST(request: Request) {
     if (socialIconHoverColor !== undefined && socialIconHoverColor !== '') updates.socialIconHoverColor = socialIconHoverColor;
     else if (formData.has('socialIconHoverColor') && socialIconHoverColor === '') updates.socialIconHoverColor = null;
 
-    // File uploads — only works locally; on Vercel filesystem is read-only so we skip silently
-    if (canWriteFiles) {
-      const uploadDir = join(process.cwd(), 'public', 'uploads');
-      await mkdir(uploadDir, { recursive: true });
+    // File uploads to Vercel Blob
+    const { put } = await import('@vercel/blob');
 
-      const photo = formData.get('photo') as File | null;
-      if (photo && photo.size > 0 && photo.name !== 'undefined') {
-        const buffer = Buffer.from(await photo.arrayBuffer());
-        const fileName = `${Date.now()}-${photo.name.replace(/\s+/g, '-')}`;
-        await writeFile(join(uploadDir, fileName), buffer);
-        updates.photoUrl = `/uploads/${fileName}`;
-      }
+    const photo = formData.get('photo') as File | null;
+    if (photo && photo.size > 0 && photo.name !== 'undefined') {
+      const blob = await put(`photo-${Date.now()}-${photo.name.replace(/\s+/g, '-')}`, photo, {
+        access: 'public',
+      });
+      updates.photoUrl = blob.url;
+    }
 
-      const resume = formData.get('resume') as File | null;
-      if (resume && resume.size > 0 && resume.name !== 'undefined') {
-        const buffer = Buffer.from(await resume.arrayBuffer());
-        const fileName = `${Date.now()}-${resume.name.replace(/\s+/g, '-')}`;
-        await writeFile(join(uploadDir, fileName), buffer);
-        updates.resumeUrl = `/uploads/${fileName}`;
-      }
+    const resume = formData.get('resume') as File | null;
+    if (resume && resume.size > 0 && resume.name !== 'undefined') {
+      const blob = await put(`resume-${Date.now()}-${resume.name.replace(/\s+/g, '-')}`, resume, {
+        access: 'public',
+        addRandomSuffix: true,
+      });
+      updates.resumeUrl = blob.url;
+    }
 
-      const bgImage = formData.get('bgImage') as File | null;
-      if (bgImage && bgImage.size > 0 && bgImage.name !== 'undefined') {
-        const buffer = Buffer.from(await bgImage.arrayBuffer());
-        const fileName = `${Date.now()}-bg-${bgImage.name.replace(/\s+/g, '-')}`;
-        await writeFile(join(uploadDir, fileName), buffer);
-        updates.bgImageUrl = `/uploads/${fileName}`;
-      } else if (formData.has('removeBgImage') && formData.get('removeBgImage') === 'true') {
-        updates.bgImageUrl = null;
-      }
+    const bgImage = formData.get('bgImage') as File | null;
+    if (bgImage && bgImage.size > 0 && bgImage.name !== 'undefined') {
+      const blob = await put(`bg-${Date.now()}-${bgImage.name.replace(/\s+/g, '-')}`, bgImage, {
+        access: 'public',
+      });
+      updates.bgImageUrl = blob.url;
+    } else if (formData.has('removeBgImage') && formData.get('removeBgImage') === 'true') {
+      updates.bgImageUrl = null;
     }
 
     // Upsert: create with defaults on first run, then only patch what changed
