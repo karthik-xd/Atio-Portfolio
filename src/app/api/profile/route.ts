@@ -5,6 +5,9 @@ import { join } from 'path';
 
 export const dynamic = 'force-dynamic';
 
+// Vercel serverless has a read-only filesystem — file writes only work locally
+const canWriteFiles = process.env.VERCEL !== '1';
+
 export async function GET() {
   try {
     const profile = await prisma.profile.upsert({
@@ -14,6 +17,7 @@ export async function GET() {
     });
     return NextResponse.json(profile);
   } catch (error) {
+    console.error('Error fetching profile:', error);
     return NextResponse.json({ error: 'Failed to fetch profile' }, { status: 500 });
   }
 }
@@ -32,24 +36,22 @@ export async function POST(request: Request) {
     const githubUrl = (formData.get('githubUrl') as string)?.trim();
     const twitterUrl = (formData.get('twitterUrl') as string)?.trim();
     const email = (formData.get('email') as string)?.trim();
-
     const themeBgColor = (formData.get('themeBgColor') as string)?.trim();
     const themePrimaryColor = (formData.get('themePrimaryColor') as string)?.trim();
 
-    if (name)        updates.name        = name;
-    if (subtitle)    updates.subtitle    = subtitle;
-    // For links: if user typed something use it; if they sent empty string it means "clear it"
-    // We treat a non-empty string as a new value; we leave undefined fields untouched
-    if (linkedinUrl !== undefined && linkedinUrl !== '')  updates.linkedinUrl = linkedinUrl;
+    if (name)     updates.name     = name;
+    if (subtitle) updates.subtitle = subtitle;
+
+    if (linkedinUrl !== undefined && linkedinUrl !== '') updates.linkedinUrl = linkedinUrl;
     else if (formData.has('linkedinUrl') && linkedinUrl === '') updates.linkedinUrl = null;
 
-    if (githubUrl !== undefined && githubUrl !== '')   updates.githubUrl   = githubUrl;
+    if (githubUrl !== undefined && githubUrl !== '') updates.githubUrl = githubUrl;
     else if (formData.has('githubUrl') && githubUrl === '') updates.githubUrl = null;
 
-    if (twitterUrl !== undefined && twitterUrl !== '')  updates.twitterUrl  = twitterUrl;
+    if (twitterUrl !== undefined && twitterUrl !== '') updates.twitterUrl = twitterUrl;
     else if (formData.has('twitterUrl') && twitterUrl === '') updates.twitterUrl = null;
 
-    if (email !== undefined && email !== '')     updates.email       = email;
+    if (email !== undefined && email !== '') updates.email = email;
     else if (formData.has('email') && email === '') updates.email = null;
 
     if (themeBgColor !== undefined && themeBgColor !== '') updates.themeBgColor = themeBgColor;
@@ -153,34 +155,36 @@ export async function POST(request: Request) {
     if (socialIconHoverColor !== undefined && socialIconHoverColor !== '') updates.socialIconHoverColor = socialIconHoverColor;
     else if (formData.has('socialIconHoverColor') && socialIconHoverColor === '') updates.socialIconHoverColor = null;
 
-    // File uploads — only replace if a new file was actually chosen
-    const uploadDir = join(process.cwd(), 'public', 'uploads');
-    await mkdir(uploadDir, { recursive: true });
+    // File uploads — only works locally; on Vercel filesystem is read-only so we skip silently
+    if (canWriteFiles) {
+      const uploadDir = join(process.cwd(), 'public', 'uploads');
+      await mkdir(uploadDir, { recursive: true });
 
-    const photo = formData.get('photo') as File | null;
-    if (photo && photo.size > 0 && photo.name !== 'undefined') {
-      const buffer = Buffer.from(await photo.arrayBuffer());
-      const fileName = `${Date.now()}-${photo.name.replace(/\s+/g, '-')}`;
-      await writeFile(join(uploadDir, fileName), buffer);
-      updates.photoUrl = `/uploads/${fileName}`;
-    }
+      const photo = formData.get('photo') as File | null;
+      if (photo && photo.size > 0 && photo.name !== 'undefined') {
+        const buffer = Buffer.from(await photo.arrayBuffer());
+        const fileName = `${Date.now()}-${photo.name.replace(/\s+/g, '-')}`;
+        await writeFile(join(uploadDir, fileName), buffer);
+        updates.photoUrl = `/uploads/${fileName}`;
+      }
 
-    const resume = formData.get('resume') as File | null;
-    if (resume && resume.size > 0 && resume.name !== 'undefined') {
-      const buffer = Buffer.from(await resume.arrayBuffer());
-      const fileName = `${Date.now()}-${resume.name.replace(/\s+/g, '-')}`;
-      await writeFile(join(uploadDir, fileName), buffer);
-      updates.resumeUrl = `/uploads/${fileName}`;
-    }
+      const resume = formData.get('resume') as File | null;
+      if (resume && resume.size > 0 && resume.name !== 'undefined') {
+        const buffer = Buffer.from(await resume.arrayBuffer());
+        const fileName = `${Date.now()}-${resume.name.replace(/\s+/g, '-')}`;
+        await writeFile(join(uploadDir, fileName), buffer);
+        updates.resumeUrl = `/uploads/${fileName}`;
+      }
 
-    const bgImage = formData.get('bgImage') as File | null;
-    if (bgImage && bgImage.size > 0 && bgImage.name !== 'undefined') {
-      const buffer = Buffer.from(await bgImage.arrayBuffer());
-      const fileName = `${Date.now()}-bg-${bgImage.name.replace(/\s+/g, '-')}`;
-      await writeFile(join(uploadDir, fileName), buffer);
-      updates.bgImageUrl = `/uploads/${fileName}`;
-    } else if (formData.has('removeBgImage') && formData.get('removeBgImage') === 'true') {
-      updates.bgImageUrl = null;
+      const bgImage = formData.get('bgImage') as File | null;
+      if (bgImage && bgImage.size > 0 && bgImage.name !== 'undefined') {
+        const buffer = Buffer.from(await bgImage.arrayBuffer());
+        const fileName = `${Date.now()}-bg-${bgImage.name.replace(/\s+/g, '-')}`;
+        await writeFile(join(uploadDir, fileName), buffer);
+        updates.bgImageUrl = `/uploads/${fileName}`;
+      } else if (formData.has('removeBgImage') && formData.get('removeBgImage') === 'true') {
+        updates.bgImageUrl = null;
+      }
     }
 
     // Upsert: create with defaults on first run, then only patch what changed
