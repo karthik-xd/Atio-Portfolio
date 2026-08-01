@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/prisma';
-import { AcademicType } from '@/generated/prisma';
+import { AcademicType, type AcademicItem } from '@/generated/prisma';
 import Link from 'next/link';
 import { FaSmile, FaExternalLinkAlt } from 'react-icons/fa';
 import './academic.css';
@@ -7,12 +7,12 @@ import './academic.css';
 export const dynamic = 'force-dynamic';
 
 export default async function AcademicProfile() {
-  const academicItems = await prisma.academicItem.findMany({
+  const academicItems: AcademicItem[] = await prisma.academicItem.findMany({
     orderBy: { createdAt: 'desc' },
   });
 
-  const education = academicItems.filter((i) => i.type === AcademicType.EDUCATION);
-  const publications = academicItems.filter((i) => i.type === AcademicType.PUBLICATION);
+  const education = academicItems.filter((i: AcademicItem) => i.type === AcademicType.EDUCATION);
+  const publications = academicItems.filter((i: AcademicItem) => i.type === AcademicType.PUBLICATION);
 
   return (
     <main className="academic-main">
@@ -33,7 +33,7 @@ export default async function AcademicProfile() {
           <p className="empty-academic">No education entries yet. Add them from the admin panel.</p>
         ) : (
           <div className="timeline">
-            {education.map((item) => (
+            {education.map((item: AcademicItem) => (
               <div key={item.id} className="timeline-item">
                 <div className="timeline-content glassmorphism">
                   <div className="timeline-date">{item.date}</div>
@@ -61,7 +61,7 @@ export default async function AcademicProfile() {
           <p className="empty-academic" style={{ textAlign: 'center' }}>No publications yet. Add them from the admin panel.</p>
         ) : (
           <div className="publications-grid">
-            {publications.map((item) => (
+            {publications.map((item: AcademicItem) => (
               <div key={item.id} className="pub-card glassmorphism glow-on-hover">
                 <h4>{item.title}</h4>
                 <div className="pub-meta">

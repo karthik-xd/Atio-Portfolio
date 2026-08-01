@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { AcademicType } from '@/generated/prisma';
 
 export async function GET() {
   try {
@@ -22,7 +23,7 @@ export async function POST(request: Request) {
     const institution = formData.get('institution') as string;
     const date = formData.get('date') as string;
     const description = formData.get('description') as string;
-    const type = formData.get('type') as string; // 'Education' or 'Publication'
+    const type = formData.get('type') as AcademicType;
     const link = formData.get('link') as string | null;
     const authors = formData.get('authors') as string | null;
     
