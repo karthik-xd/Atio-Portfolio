@@ -55,15 +55,9 @@ export async function PATCH(
     if (category) updates.category = category;
     if (externalLink !== undefined) updates.externalLink = externalLink || null;
 
-    // Replace media only if a new file was uploaded
-    const media = formData.get('media') as File | null;
-    if (media && media.size > 0 && media.name !== 'undefined') {
-      const uploadDir = join(process.cwd(), 'public', 'uploads');
-      await mkdir(uploadDir, { recursive: true });
-      const buffer = Buffer.from(await media.arrayBuffer());
-      const fileName = `${Date.now()}-${media.name.replace(/\s+/g, '-')}`;
-      await writeFile(join(uploadDir, fileName), buffer);
-      updates.mediaUrl = `/uploads/${fileName}`;
+    const mediaUrl = formData.get('media') as string | null;
+    if (mediaUrl !== null && mediaUrl !== 'undefined' && mediaUrl !== '') {
+      updates.mediaUrl = mediaUrl;
     }
 
     const item = await prisma.item.update({

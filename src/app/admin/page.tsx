@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import { FaTrash, FaEdit, FaCheck, FaTimes, FaCamera, FaImage, FaPalette } from 'react-icons/fa';
+import { upload } from '@vercel/blob/client';
 import './admin.css';
 
 type Profile = {
@@ -170,7 +171,21 @@ export default function AdminDashboard() {
     const formData = new FormData();
     
     if (value instanceof File) {
-      formData.append(field, value);
+      try {
+        const newBlob = await upload(value.name, value, {
+          access: 'public',
+          handleUploadUrl: '/api/upload',
+        });
+        
+        // Map the file upload to its database field name
+        const dbField = field === 'photo' ? 'photoUrl' : field === 'bgImage' ? 'bgImageUrl' : 'resumeUrl';
+        formData.append(dbField, newBlob.url);
+      } catch (error) {
+        alert('File upload failed. Ensure the file is not too large and is a supported type.');
+        setLoading(false);
+        setEditingField(null);
+        return;
+      }
     } else {
       formData.append(field, value || '');
     }
@@ -361,6 +376,22 @@ export default function AdminDashboard() {
     setLoading(true);
     const formData = new FormData(e.currentTarget);
     
+    // Intercept media file and upload directly to Vercel Blob
+    const mediaFile = formData.get('media') as File | null;
+    if (mediaFile && mediaFile.size > 0 && mediaFile.name) {
+      try {
+        const newBlob = await upload(mediaFile.name, mediaFile, {
+          access: 'public',
+          handleUploadUrl: '/api/upload',
+        });
+        formData.set('media', newBlob.url);
+      } catch (error) {
+        alert('File upload failed. Ensure the file is not too large and is a supported type.');
+        setLoading(false);
+        return;
+      }
+    }
+
     try {
       const url = editingPortfolioItem ? `/api/items/${editingPortfolioItem.id}` : '/api/items';
       const method = editingPortfolioItem ? 'PATCH' : 'POST';

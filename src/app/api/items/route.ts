@@ -14,25 +14,10 @@ export async function POST(request: Request) {
     const description = formData.get('description') as string;
     const category = formData.get('category') as ItemCategory;
     const externalLink = formData.get('externalLink') as string | null;
-    const media = formData.get('media') as File | null;
     
-    let mediaUrl = null;
-    
-    if (media && media.size > 0 && media.name !== 'undefined') {
-      const bytes = await media.arrayBuffer();
-      const buffer = Buffer.from(bytes);
-      
-      const uploadDir = join(process.cwd(), 'public', 'uploads');
-      try {
-        await mkdir(uploadDir, { recursive: true });
-      } catch (e) {
-        // Ignore if exists
-      }
-      
-      const fileName = `${Date.now()}-${media.name.replace(/\s+/g, '-')}`;
-      const filePath = join(uploadDir, fileName);
-      await writeFile(filePath, buffer);
-      mediaUrl = `/uploads/${fileName}`;
+    let mediaUrl = formData.get('media') as string | null;
+    if (mediaUrl === 'undefined' || mediaUrl === '') {
+      mediaUrl = null;
     }
     
     const item = await prisma.item.create({

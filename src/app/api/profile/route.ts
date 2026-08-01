@@ -150,35 +150,18 @@ export async function POST(request: Request) {
     if (socialIconHoverColor !== undefined && socialIconHoverColor !== '') updates.socialIconHoverColor = socialIconHoverColor;
     else if (formData.has('socialIconHoverColor') && socialIconHoverColor === '') updates.socialIconHoverColor = null;
 
-    // File uploads to Vercel Blob
-    const { put } = await import('@vercel/blob');
+    const photoUrl = (formData.get('photoUrl') as string)?.trim();
+    if (photoUrl !== undefined && photoUrl !== '') updates.photoUrl = photoUrl;
+    else if (formData.has('photoUrl') && photoUrl === '') updates.photoUrl = null;
 
-    const photo = formData.get('photo') as File | null;
-    if (photo && photo.size > 0 && photo.name !== 'undefined') {
-      const blob = await put(`photo-${Date.now()}-${photo.name.replace(/\s+/g, '-')}`, photo, {
-        access: 'public',
-      });
-      updates.photoUrl = blob.url;
-    }
+    const resumeUrl = (formData.get('resumeUrl') as string)?.trim();
+    if (resumeUrl !== undefined && resumeUrl !== '') updates.resumeUrl = resumeUrl;
+    else if (formData.has('resumeUrl') && resumeUrl === '') updates.resumeUrl = null;
 
-    const resume = formData.get('resume') as File | null;
-    if (resume && resume.size > 0 && resume.name !== 'undefined') {
-      const blob = await put(`resume-${Date.now()}-${resume.name.replace(/\s+/g, '-')}`, resume, {
-        access: 'public',
-        addRandomSuffix: true,
-      });
-      updates.resumeUrl = blob.url;
-    }
-
-    const bgImage = formData.get('bgImage') as File | null;
-    if (bgImage && bgImage.size > 0 && bgImage.name !== 'undefined') {
-      const blob = await put(`bg-${Date.now()}-${bgImage.name.replace(/\s+/g, '-')}`, bgImage, {
-        access: 'public',
-      });
-      updates.bgImageUrl = blob.url;
-    } else if (formData.has('removeBgImage') && formData.get('removeBgImage') === 'true') {
-      updates.bgImageUrl = null;
-    }
+    const bgImageUrl = (formData.get('bgImageUrl') as string)?.trim();
+    if (bgImageUrl !== undefined && bgImageUrl !== '') updates.bgImageUrl = bgImageUrl;
+    else if (formData.has('bgImageUrl') && bgImageUrl === '') updates.bgImageUrl = null;
+    else if (formData.has('removeBgImage') && formData.get('removeBgImage') === 'true') updates.bgImageUrl = null;
 
     // Upsert: create with defaults on first run, then only patch what changed
     const profile = await prisma.profile.upsert({
