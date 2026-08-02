@@ -55,9 +55,9 @@ export async function PATCH(
     if (category) updates.category = category;
     if (externalLink !== undefined) updates.externalLink = externalLink || null;
 
-    const mediaUrl = formData.get('media') as string | null;
-    if (mediaUrl !== null && mediaUrl !== 'undefined' && mediaUrl !== '') {
-      updates.mediaUrl = mediaUrl;
+    const mediaRaw = formData.get('media');
+    if (typeof mediaRaw === 'string' && mediaRaw !== '' && mediaRaw !== 'undefined') {
+      updates.mediaUrl = mediaRaw;
     }
 
     const item = await prisma.item.update({

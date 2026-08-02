@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { ItemCategory } from '@/generated/prisma/client';
-import { writeFile, mkdir } from 'fs/promises';
-import { join } from 'path';
 
 export const dynamic = 'force-dynamic';
 
@@ -15,9 +13,11 @@ export async function POST(request: Request) {
     const category = formData.get('category') as ItemCategory;
     const externalLink = formData.get('externalLink') as string | null;
     
-    let mediaUrl = formData.get('media') as string | null;
-    if (mediaUrl === 'undefined' || mediaUrl === '') {
-      mediaUrl = null;
+    // Only accept string URLs (uploaded via Vercel Blob client). Reject File/Blob objects.
+    const mediaRaw = formData.get('media');
+    let mediaUrl: string | null = null;
+    if (typeof mediaRaw === 'string' && mediaRaw !== '' && mediaRaw !== 'undefined') {
+      mediaUrl = mediaRaw;
     }
     
     const item = await prisma.item.create({

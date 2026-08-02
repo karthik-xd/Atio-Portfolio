@@ -61,22 +61,36 @@ export default async function Home() {
                 </a>
               )}
               {profile.email && (
-                <a href={`mailto:${profile.email.trim()}`} className="social-icon" aria-label="Email" title={profile.email}>
+                <a 
+                  href={`https://mail.google.com/mail/?view=cm&to=${encodeURIComponent(profile.email.trim())}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-icon" 
+                  aria-label="Email" 
+                  title={`Send email to ${profile.email}`}
+                >
                   <FaEnvelope size={22} />
                 </a>
               )}
-              {profile.phoneNumber && (
-                <a 
-                  href={profile.phoneNumber.startsWith('http') ? profile.phoneNumber : `tel:${profile.phoneNumber.trim().replace(/\s+/g, '')}`} 
-                  className="social-icon" 
-                  aria-label="Phone"
-                  title={profile.phoneNumber}
-                  target={profile.phoneNumber.startsWith('http') ? '_blank' : undefined}
-                  rel="noopener noreferrer"
-                >
-                  <FaPhone size={20} />
-                </a>
-              )}
+              {profile.phoneNumber && (() => {
+                const raw = profile.phoneNumber.trim();
+                // If it's already a URL (WhatsApp link etc.), use it directly
+                const href = raw.startsWith('http')
+                  ? raw
+                  : `https://wa.me/${raw.replace(/\D/g, '')}`;
+                return (
+                  <a 
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="social-icon" 
+                    aria-label="Phone / WhatsApp"
+                    title={raw}
+                  >
+                    <FaPhone size={20} />
+                  </a>
+                );
+              })()}
             </div>
 
             <div className="hero-actions">
