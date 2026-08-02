@@ -21,7 +21,7 @@ model Item {
   id           Int          @id @default(autoincrement())
   title        String
   description  String
-  category     ItemCategory @default(PROJECT)
+  category     String       @default("Project")
   externalLink String?
   mediaUrl     String?      // Path to uploaded video or image
   createdAt    DateTime     @default(now())

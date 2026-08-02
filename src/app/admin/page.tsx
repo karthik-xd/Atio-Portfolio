@@ -380,21 +380,48 @@ export default function AdminDashboard() {
     setLoading(true);
     const formData = new FormData(e.currentTarget);
     
-    // Intercept media file and upload directly to Vercel Blob
-    const mediaFile = formData.get('media') as File | null;
-    if (mediaFile && mediaFile.size > 0 && mediaFile.name) {
+    // Intercept image files and upload to Vercel Blob in parallel
+    const imageFiles = formData.getAll('imageFiles') as File[];
+    const imageUrls: string[] = [];
+    for (const file of imageFiles) {
+      if (file && file.size > 0 && file.name) {
+        try {
+          const newBlob = await upload(file.name, file, {
+            access: 'public',
+            handleUploadUrl: '/api/upload',
+          });
+          imageUrls.push(newBlob.url);
+        } catch (error) {
+          alert(`Image upload failed for ${file.name}. Ensure it is under 100MB.`);
+          setLoading(false);
+          return;
+        }
+      }
+    }
+    if (imageUrls.length > 0) {
+      formData.set('imageUrls', imageUrls.join(','));
+    }
+
+    // Intercept video file and upload to Vercel Blob
+    const videoFile = formData.get('videoFile') as File | null;
+    if (videoFile && videoFile.size > 0 && videoFile.name) {
       try {
-        const newBlob = await upload(mediaFile.name, mediaFile, {
+        const newBlob = await upload(videoFile.name, videoFile, {
           access: 'public',
           handleUploadUrl: '/api/upload',
         });
-        formData.set('media', newBlob.url);
+        formData.set('videoUrl', newBlob.url);
       } catch (error) {
-        alert('File upload failed. Ensure the file is not too large and is a supported type.');
+        alert('Video upload failed. Ensure the file is not too large and is a supported type.');
         setLoading(false);
         return;
       }
     }
+
+    // Clean up file objects so we don't send raw files to Next API routes (bypasses payload limit)
+    formData.delete('imageFiles');
+    formData.delete('videoFile');
+    formData.delete('media');
 
     try {
       const url = editingPortfolioItem ? `/api/items/${editingPortfolioItem.id}` : '/api/items';
@@ -736,8 +763,13 @@ export default function AdminDashboard() {
                   <input type="url" name="externalLink" placeholder="https://..." defaultValue={editingPortfolioItem?.externalLink || ''} />
                 </div>
                 <div className="form-group">
-                  <label>Upload Media (Video/Image) {editingPortfolioItem?.mediaUrl && <span className="optional-tag">(Upload to replace)</span>}</label>
-                  <input type="file" name="media" accept="video/*,image/*,application/pdf" />
+                  <label>Upload Photo(s) (Slideshow) {editingPortfolioItem?.mediaUrl && <span className="optional-tag">(Upload to replace)</span>}</label>
+                  <input type="file" name="imageFiles" accept="image/*,application/pdf" multiple />
+                  <p className="admin-hint" style={{margin: '0.2rem 0 0 0', fontSize: '0.85rem', color: '#888'}}>Select multiple images to create a slideshow.</p>
+                </div>
+                <div className="form-group">
+                  <label>Upload Video {editingPortfolioItem?.mediaUrl && <span className="optional-tag">(Upload to replace)</span>}</label>
+                  <input type="file" name="videoFile" accept="video/*" />
                 </div>
                 <div className="form-actions-row">
                   <button type="submit" disabled={loading} className="submit-btn glow-on-hover" style={{ flex: 1 }}>

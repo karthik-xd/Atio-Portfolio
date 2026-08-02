@@ -55,9 +55,22 @@ export async function PATCH(
     if (category) updates.category = category;
     if (externalLink !== undefined) updates.externalLink = externalLink || null;
 
+    // Combine image URLs (comma-separated) + video URL into one mediaUrl field
+    const imageUrlsRaw = formData.get('imageUrls');
+    const videoUrlRaw = formData.get('videoUrl');
+    const parts: string[] = [];
+    if (typeof imageUrlsRaw === 'string' && imageUrlsRaw.trim()) {
+      parts.push(...imageUrlsRaw.split(',').map(u => u.trim()).filter(Boolean));
+    }
+    if (typeof videoUrlRaw === 'string' && videoUrlRaw.trim() && videoUrlRaw !== 'undefined') {
+      parts.push(videoUrlRaw.trim());
+    }
     const mediaRaw = formData.get('media');
     if (typeof mediaRaw === 'string' && mediaRaw !== '' && mediaRaw !== 'undefined') {
-      updates.mediaUrl = mediaRaw;
+      parts.push(mediaRaw);
+    }
+    if (parts.length > 0) {
+      updates.mediaUrl = parts.join(',');
     }
 
     const item = await prisma.item.update({

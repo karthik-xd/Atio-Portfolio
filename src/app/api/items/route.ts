@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { ItemCategory } from '@/generated/prisma/client';
 
 export const dynamic = 'force-dynamic';
 
@@ -10,17 +9,29 @@ export async function POST(request: Request) {
     
     const title = formData.get('title') as string;
     const description = formData.get('description') as string;
-    const category = formData.get('category') as ItemCategory;
+    // Accept any category string (freeform: Project, Hackathon, Research Paper, etc.)
+    const category = (formData.get('category') as string)?.trim() || 'Project';
     const externalLink = formData.get('externalLink') as string | null;
     
-    // Only accept string URLs (uploaded via Vercel Blob client). Reject File/Blob objects.
-    const mediaRaw = formData.get('media');
-    let mediaUrl: string | null = null;
-    if (typeof mediaRaw === 'string' && mediaRaw !== '' && mediaRaw !== 'undefined') {
-      mediaUrl = mediaRaw;
+    // Combine image URLs (comma-separated) + video URL into one mediaUrl field
+    const imageUrlsRaw = formData.get('imageUrls');
+    const videoUrlRaw = formData.get('videoUrl');
+    const parts: string[] = [];
+    if (typeof imageUrlsRaw === 'string' && imageUrlsRaw.trim()) {
+      parts.push(...imageUrlsRaw.split(',').map(u => u.trim()).filter(Boolean));
     }
+    if (typeof videoUrlRaw === 'string' && videoUrlRaw.trim() && videoUrlRaw !== 'undefined') {
+      parts.push(videoUrlRaw.trim());
+    }
+    // Also support legacy single 'media' field
+    const mediaRaw = formData.get('media');
+    if (typeof mediaRaw === 'string' && mediaRaw !== '' && mediaRaw !== 'undefined') {
+      parts.push(mediaRaw);
+    }
+    const mediaUrl = parts.length > 0 ? parts.join(',') : null;
     
-    const item = await prisma.item.create({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const item = await (prisma.item as any).create({
       data: {
         title,
         description,
