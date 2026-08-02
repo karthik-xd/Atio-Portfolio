@@ -90,6 +90,12 @@ export default function AdminDashboard() {
   // File inputs references
   const photoInputRef = useRef<HTMLInputElement>(null);
   const bgImageInputRef = useRef<HTMLInputElement>(null);
+
+  const sanitizeFilename = (name: string) => {
+    return name
+      .replace(/[^a-zA-Z0-9.-]/g, '_') // Replace spaces and special characters with underscore
+      .replace(/_{2,}/g, '_');         // Collapse multiple underscores
+  };
   const resumeInputRef = useRef<HTMLInputElement>(null);
 
   // Data lists
@@ -176,7 +182,8 @@ export default function AdminDashboard() {
     
     if (value instanceof File) {
       try {
-        const newBlob = await upload(value.name, value, {
+        const sanitizedName = sanitizeFilename(value.name);
+        const newBlob = await upload(sanitizedName, value, {
           access: 'public',
           handleUploadUrl: '/api/upload',
         });
@@ -185,7 +192,7 @@ export default function AdminDashboard() {
         const dbField = field === 'photo' ? 'photoUrl' : field === 'bgImage' ? 'bgImageUrl' : 'resumeUrl';
         formData.append(dbField, newBlob.url);
       } catch (error) {
-        alert('File upload failed. Ensure the file is not too large and is a supported type.');
+        alert(`File upload failed: ${(error as Error).message}`);
         setLoading(false);
         setEditingField(null);
         return;
@@ -380,19 +387,20 @@ export default function AdminDashboard() {
     setLoading(true);
     const formData = new FormData(e.currentTarget);
     
-    // Intercept image files and upload to Vercel Blob in parallel
+    // Intercept image files and upload to Vercel Blob
     const imageFiles = formData.getAll('imageFiles') as File[];
     const imageUrls: string[] = [];
     for (const file of imageFiles) {
       if (file && file.size > 0 && file.name) {
         try {
-          const newBlob = await upload(file.name, file, {
+          const sanitizedName = sanitizeFilename(file.name);
+          const newBlob = await upload(sanitizedName, file, {
             access: 'public',
             handleUploadUrl: '/api/upload',
           });
           imageUrls.push(newBlob.url);
         } catch (error) {
-          alert(`Image upload failed for ${file.name}. Ensure it is under 100MB.`);
+          alert(`Image upload failed for ${file.name}: ${(error as Error).message}`);
           setLoading(false);
           return;
         }
@@ -406,13 +414,14 @@ export default function AdminDashboard() {
     const videoFile = formData.get('videoFile') as File | null;
     if (videoFile && videoFile.size > 0 && videoFile.name) {
       try {
-        const newBlob = await upload(videoFile.name, videoFile, {
+        const sanitizedName = sanitizeFilename(videoFile.name);
+        const newBlob = await upload(sanitizedName, videoFile, {
           access: 'public',
           handleUploadUrl: '/api/upload',
         });
         formData.set('videoUrl', newBlob.url);
       } catch (error) {
-        alert('Video upload failed. Ensure the file is not too large and is a supported type.');
+        alert(`Video upload failed for ${videoFile.name}: ${(error as Error).message}`);
         setLoading(false);
         return;
       }
@@ -465,13 +474,14 @@ export default function AdminDashboard() {
       const linkFile = formData.get('linkFile') as File | null;
       if (linkFile && linkFile.size > 0 && linkFile.name) {
         try {
-          const newBlob = await upload(linkFile.name, linkFile, {
+          const sanitizedName = sanitizeFilename(linkFile.name);
+          const newBlob = await upload(sanitizedName, linkFile, {
             access: 'public',
             handleUploadUrl: '/api/upload',
           });
           formData.set('link', newBlob.url);
         } catch (error) {
-          alert('File upload failed. Ensure the file is not too large and is a supported type.');
+          alert(`File upload failed: ${(error as Error).message}`);
           setLoading(false);
           return;
         }
