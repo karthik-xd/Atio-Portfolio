@@ -2,7 +2,7 @@ import { prisma } from '@/lib/prisma';
 import PortfolioClient from './PortfolioClient';
 import './portfolio.css';
 import Link from 'next/link';
-import { FaLinkedin, FaGithub, FaEnvelope, FaDownload, FaEye } from 'react-icons/fa';
+import { FaLinkedin, FaGithub, FaEnvelope, FaDownload, FaEye, FaPhone } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import Image from 'next/image';
 import BioModal from './BioModal';
@@ -61,8 +61,20 @@ export default async function Home() {
                 </a>
               )}
               {profile.email && (
-                <a href={`mailto:${profile.email}`} className="social-icon" aria-label="Email">
+                <a href={`mailto:${profile.email.trim()}`} className="social-icon" aria-label="Email" title={profile.email}>
                   <FaEnvelope size={22} />
+                </a>
+              )}
+              {profile.phoneNumber && (
+                <a 
+                  href={profile.phoneNumber.startsWith('http') ? profile.phoneNumber : `tel:${profile.phoneNumber.trim().replace(/\s+/g, '')}`} 
+                  className="social-icon" 
+                  aria-label="Phone"
+                  title={profile.phoneNumber}
+                  target={profile.phoneNumber.startsWith('http') ? '_blank' : undefined}
+                  rel="noopener noreferrer"
+                >
+                  <FaPhone size={20} />
                 </a>
               )}
             </div>

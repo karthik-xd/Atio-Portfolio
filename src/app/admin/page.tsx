@@ -11,6 +11,7 @@ type Profile = {
   githubUrl: string | null;
   twitterUrl: string | null;
   email: string | null;
+  phoneNumber: string | null;
   photoUrl: string | null;
   resumeUrl: string | null;
   themeBgColor: string | null;
@@ -73,7 +74,7 @@ export default function AdminDashboard() {
   // Profile state
   const [profile, setProfile] = useState<Profile>({
     name: '', subtitle: '', linkedinUrl: '', githubUrl: '',
-    twitterUrl: '', email: '', photoUrl: null, resumeUrl: null,
+    twitterUrl: '', email: '', phoneNumber: '', photoUrl: null, resumeUrl: null,
     themeBgColor: null, themePrimaryColor: null, greetingColor: null, themeSecondaryColor: null, themeAccentColor: null, bgImageUrl: null,
     profileSize: 250, glowSpread: 30, glowOpacity: 0.3, ambientGlowSize: 400, ambientGlowOpacity: 0.15, ambientGlowColor: null, ringPadding: 5, photoContrast: 1.0, bgMediaOpacity: 0.6, bgOverlayOpacity: 1.0,
     heroPrimaryBtnBg: null, heroPrimaryBtnHover: null, heroPrimaryBtnText: null,
@@ -117,6 +118,7 @@ export default function AdminDashboard() {
         githubUrl: data.githubUrl || '',
         twitterUrl: data.twitterUrl || '',
         email: data.email || '',
+        phoneNumber: data.phoneNumber || '',
         photoUrl: data.photoUrl || null,
         resumeUrl: data.resumeUrl || null,
         themeBgColor: data.themeBgColor || null,
@@ -529,6 +531,7 @@ export default function AdminDashboard() {
                 
                 <div className="section-divider">Contact & Links</div>
                 {renderEditableField('email', 'Email', 'email', 'contact@example.com')}
+                {renderEditableField('phoneNumber', 'Phone / WhatsApp Number', 'text', '+1234567890')}
                 {renderEditableField('linkedinUrl', 'LinkedIn', 'url', 'https://linkedin.com/in/...')}
                 {renderEditableField('githubUrl', 'GitHub', 'url', 'https://github.com/...')}
                 {renderEditableField('twitterUrl', 'Twitter', 'url', 'https://twitter.com/...')}

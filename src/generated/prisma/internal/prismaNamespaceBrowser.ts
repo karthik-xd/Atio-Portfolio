@@ -91,6 +91,7 @@ export const ProfileScalarFieldEnum = {
   githubUrl: 'githubUrl',
   twitterUrl: 'twitterUrl',
   email: 'email',
+  phoneNumber: 'phoneNumber',
   resumeUrl: 'resumeUrl',
   themeBgColor: 'themeBgColor',
   themePrimaryColor: 'themePrimaryColor',

@@ -9,8 +9,8 @@ const client = createClient({ url, authToken });
 
 async function main() {
   try {
-    await client.execute('ALTER TABLE Profile ADD COLUMN greetingColor TEXT');
-    console.log('Added greetingColor');
+    await client.execute('ALTER TABLE Profile ADD COLUMN phoneNumber TEXT');
+    console.log('Added phoneNumber');
   } catch (e) {
     console.log('Ignored:', e.message);
   }

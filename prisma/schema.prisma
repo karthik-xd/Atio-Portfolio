@@ -36,6 +36,7 @@ model Profile {
   githubUrl            String?
   twitterUrl           String?
   email                String?
+  phoneNumber          String?
   resumeUrl            String?
   themeBgColor         String?
   themePrimaryColor    String?

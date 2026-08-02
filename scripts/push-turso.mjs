@@ -31,6 +31,7 @@ const statements = [
     "githubUrl" TEXT,
     "twitterUrl" TEXT,
     "email" TEXT,
+    "phoneNumber" TEXT,
     "resumeUrl" TEXT,
     "themeBgColor" TEXT,
     "themePrimaryColor" TEXT,

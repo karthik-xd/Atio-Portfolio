@@ -46,8 +46,13 @@ export async function POST(request: Request) {
     if (twitterUrl !== undefined && twitterUrl !== '') updates.twitterUrl = twitterUrl;
     else if (formData.has('twitterUrl') && twitterUrl === '') updates.twitterUrl = null;
 
+    const phoneNumber = (formData.get('phoneNumber') as string)?.trim();
+
     if (email !== undefined && email !== '') updates.email = email;
     else if (formData.has('email') && email === '') updates.email = null;
+
+    if (phoneNumber !== undefined && phoneNumber !== '') updates.phoneNumber = phoneNumber;
+    else if (formData.has('phoneNumber') && phoneNumber === '') updates.phoneNumber = null;
 
     if (themeBgColor !== undefined && themeBgColor !== '') updates.themeBgColor = themeBgColor;
     else if (formData.has('themeBgColor') && themeBgColor === '') updates.themeBgColor = null;

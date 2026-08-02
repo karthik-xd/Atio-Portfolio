@@ -61,6 +61,7 @@ export type ProfileMinAggregateOutputType = {
   githubUrl: string | null
   twitterUrl: string | null
   email: string | null
+  phoneNumber: string | null
   resumeUrl: string | null
   themeBgColor: string | null
   themePrimaryColor: string | null
@@ -103,6 +104,7 @@ export type ProfileMaxAggregateOutputType = {
   githubUrl: string | null
   twitterUrl: string | null
   email: string | null
+  phoneNumber: string | null
   resumeUrl: string | null
   themeBgColor: string | null
   themePrimaryColor: string | null
@@ -145,6 +147,7 @@ export type ProfileCountAggregateOutputType = {
   githubUrl: number
   twitterUrl: number
   email: number
+  phoneNumber: number
   resumeUrl: number
   themeBgColor: number
   themePrimaryColor: number
@@ -215,6 +218,7 @@ export type ProfileMinAggregateInputType = {
   githubUrl?: true
   twitterUrl?: true
   email?: true
+  phoneNumber?: true
   resumeUrl?: true
   themeBgColor?: true
   themePrimaryColor?: true
@@ -257,6 +261,7 @@ export type ProfileMaxAggregateInputType = {
   githubUrl?: true
   twitterUrl?: true
   email?: true
+  phoneNumber?: true
   resumeUrl?: true
   themeBgColor?: true
   themePrimaryColor?: true
@@ -299,6 +304,7 @@ export type ProfileCountAggregateInputType = {
   githubUrl?: true
   twitterUrl?: true
   email?: true
+  phoneNumber?: true
   resumeUrl?: true
   themeBgColor?: true
   themePrimaryColor?: true
@@ -428,6 +434,7 @@ export type ProfileGroupByOutputType = {
   githubUrl: string | null
   twitterUrl: string | null
   email: string | null
+  phoneNumber: string | null
   resumeUrl: string | null
   themeBgColor: string | null
   themePrimaryColor: string | null
@@ -493,6 +500,7 @@ export type ProfileWhereInput = {
   githubUrl?: Prisma.StringNullableFilter<"Profile"> | string | null
   twitterUrl?: Prisma.StringNullableFilter<"Profile"> | string | null
   email?: Prisma.StringNullableFilter<"Profile"> | string | null
+  phoneNumber?: Prisma.StringNullableFilter<"Profile"> | string | null
   resumeUrl?: Prisma.StringNullableFilter<"Profile"> | string | null
   themeBgColor?: Prisma.StringNullableFilter<"Profile"> | string | null
   themePrimaryColor?: Prisma.StringNullableFilter<"Profile"> | string | null
@@ -535,6 +543,7 @@ export type ProfileOrderByWithRelationInput = {
   githubUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   twitterUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   resumeUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   themeBgColor?: Prisma.SortOrderInput | Prisma.SortOrder
   themePrimaryColor?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -580,6 +589,7 @@ export type ProfileWhereUniqueInput = Prisma.AtLeast<{
   githubUrl?: Prisma.StringNullableFilter<"Profile"> | string | null
   twitterUrl?: Prisma.StringNullableFilter<"Profile"> | string | null
   email?: Prisma.StringNullableFilter<"Profile"> | string | null
+  phoneNumber?: Prisma.StringNullableFilter<"Profile"> | string | null
   resumeUrl?: Prisma.StringNullableFilter<"Profile"> | string | null
   themeBgColor?: Prisma.StringNullableFilter<"Profile"> | string | null
   themePrimaryColor?: Prisma.StringNullableFilter<"Profile"> | string | null
@@ -622,6 +632,7 @@ export type ProfileOrderByWithAggregationInput = {
   githubUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   twitterUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   resumeUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   themeBgColor?: Prisma.SortOrderInput | Prisma.SortOrder
   themePrimaryColor?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -672,6 +683,7 @@ export type ProfileScalarWhereWithAggregatesInput = {
   githubUrl?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
   twitterUrl?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
   email?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
+  phoneNumber?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
   resumeUrl?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
   themeBgColor?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
   themePrimaryColor?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
@@ -714,6 +726,7 @@ export type ProfileCreateInput = {
   githubUrl?: string | null
   twitterUrl?: string | null
   email?: string | null
+  phoneNumber?: string | null
   resumeUrl?: string | null
   themeBgColor?: string | null
   themePrimaryColor?: string | null
@@ -756,6 +769,7 @@ export type ProfileUncheckedCreateInput = {
   githubUrl?: string | null
   twitterUrl?: string | null
   email?: string | null
+  phoneNumber?: string | null
   resumeUrl?: string | null
   themeBgColor?: string | null
   themePrimaryColor?: string | null
@@ -798,6 +812,7 @@ export type ProfileUpdateInput = {
   githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   themeBgColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   themePrimaryColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -840,6 +855,7 @@ export type ProfileUncheckedUpdateInput = {
   githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   themeBgColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   themePrimaryColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -882,6 +898,7 @@ export type ProfileCreateManyInput = {
   githubUrl?: string | null
   twitterUrl?: string | null
   email?: string | null
+  phoneNumber?: string | null
   resumeUrl?: string | null
   themeBgColor?: string | null
   themePrimaryColor?: string | null
@@ -924,6 +941,7 @@ export type ProfileUpdateManyMutationInput = {
   githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   themeBgColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   themePrimaryColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -966,6 +984,7 @@ export type ProfileUncheckedUpdateManyInput = {
   githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resumeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   themeBgColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   themePrimaryColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1008,6 +1027,7 @@ export type ProfileCountOrderByAggregateInput = {
   githubUrl?: Prisma.SortOrder
   twitterUrl?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrder
   resumeUrl?: Prisma.SortOrder
   themeBgColor?: Prisma.SortOrder
   themePrimaryColor?: Prisma.SortOrder
@@ -1063,6 +1083,7 @@ export type ProfileMaxOrderByAggregateInput = {
   githubUrl?: Prisma.SortOrder
   twitterUrl?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrder
   resumeUrl?: Prisma.SortOrder
   themeBgColor?: Prisma.SortOrder
   themePrimaryColor?: Prisma.SortOrder
@@ -1105,6 +1126,7 @@ export type ProfileMinOrderByAggregateInput = {
   githubUrl?: Prisma.SortOrder
   twitterUrl?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrder
   resumeUrl?: Prisma.SortOrder
   themeBgColor?: Prisma.SortOrder
   themePrimaryColor?: Prisma.SortOrder
@@ -1178,6 +1200,7 @@ export type ProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   githubUrl?: boolean
   twitterUrl?: boolean
   email?: boolean
+  phoneNumber?: boolean
   resumeUrl?: boolean
   themeBgColor?: boolean
   themePrimaryColor?: boolean
@@ -1220,6 +1243,7 @@ export type ProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   githubUrl?: boolean
   twitterUrl?: boolean
   email?: boolean
+  phoneNumber?: boolean
   resumeUrl?: boolean
   themeBgColor?: boolean
   themePrimaryColor?: boolean
@@ -1262,6 +1286,7 @@ export type ProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   githubUrl?: boolean
   twitterUrl?: boolean
   email?: boolean
+  phoneNumber?: boolean
   resumeUrl?: boolean
   themeBgColor?: boolean
   themePrimaryColor?: boolean
@@ -1304,6 +1329,7 @@ export type ProfileSelectScalar = {
   githubUrl?: boolean
   twitterUrl?: boolean
   email?: boolean
+  phoneNumber?: boolean
   resumeUrl?: boolean
   themeBgColor?: boolean
   themePrimaryColor?: boolean
@@ -1337,7 +1363,7 @@ export type ProfileSelectScalar = {
   socialIconHoverColor?: boolean
 }
 
-export type ProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "subtitle" | "photoUrl" | "linkedinUrl" | "githubUrl" | "twitterUrl" | "email" | "resumeUrl" | "themeBgColor" | "themePrimaryColor" | "greetingColor" | "bgImageUrl" | "profileSize" | "glowSpread" | "glowOpacity" | "themeSecondaryColor" | "themeAccentColor" | "ambientGlowSize" | "ambientGlowOpacity" | "ambientGlowColor" | "ringPadding" | "photoContrast" | "bgMediaOpacity" | "bgOverlayOpacity" | "heroPrimaryBtnBg" | "heroPrimaryBtnHover" | "heroPrimaryBtnText" | "heroSecondaryBtnBg" | "heroSecondaryBtnHover" | "heroSecondaryBtnText" | "filterBtnBg" | "filterBtnText" | "filterBtnHoverBg" | "filterBtnHoverText" | "socialIconBg" | "socialIconColor" | "socialIconHoverBg" | "socialIconHoverColor", ExtArgs["result"]["profile"]>
+export type ProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "subtitle" | "photoUrl" | "linkedinUrl" | "githubUrl" | "twitterUrl" | "email" | "phoneNumber" | "resumeUrl" | "themeBgColor" | "themePrimaryColor" | "greetingColor" | "bgImageUrl" | "profileSize" | "glowSpread" | "glowOpacity" | "themeSecondaryColor" | "themeAccentColor" | "ambientGlowSize" | "ambientGlowOpacity" | "ambientGlowColor" | "ringPadding" | "photoContrast" | "bgMediaOpacity" | "bgOverlayOpacity" | "heroPrimaryBtnBg" | "heroPrimaryBtnHover" | "heroPrimaryBtnText" | "heroSecondaryBtnBg" | "heroSecondaryBtnHover" | "heroSecondaryBtnText" | "filterBtnBg" | "filterBtnText" | "filterBtnHoverBg" | "filterBtnHoverText" | "socialIconBg" | "socialIconColor" | "socialIconHoverBg" | "socialIconHoverColor", ExtArgs["result"]["profile"]>
 
 export type $ProfilePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Profile"
@@ -1351,6 +1377,7 @@ export type $ProfilePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     githubUrl: string | null
     twitterUrl: string | null
     email: string | null
+    phoneNumber: string | null
     resumeUrl: string | null
     themeBgColor: string | null
     themePrimaryColor: string | null
@@ -1813,6 +1840,7 @@ export interface ProfileFieldRefs {
   readonly githubUrl: Prisma.FieldRef<"Profile", 'String'>
   readonly twitterUrl: Prisma.FieldRef<"Profile", 'String'>
   readonly email: Prisma.FieldRef<"Profile", 'String'>
+  readonly phoneNumber: Prisma.FieldRef<"Profile", 'String'>
   readonly resumeUrl: Prisma.FieldRef<"Profile", 'String'>
   readonly themeBgColor: Prisma.FieldRef<"Profile", 'String'>
   readonly themePrimaryColor: Prisma.FieldRef<"Profile", 'String'>
