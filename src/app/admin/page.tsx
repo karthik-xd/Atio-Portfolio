@@ -432,6 +432,22 @@ export default function AdminDashboard() {
     const formData = new FormData(e.currentTarget);
     
     try {
+      // Intercept file upload for Academic Link
+      const linkFile = formData.get('linkFile') as File | null;
+      if (linkFile && linkFile.size > 0 && linkFile.name) {
+        try {
+          const newBlob = await upload(linkFile.name, linkFile, {
+            access: 'public',
+            handleUploadUrl: '/api/upload',
+          });
+          formData.set('link', newBlob.url);
+        } catch (error) {
+          alert('File upload failed. Ensure the file is not too large and is a supported type.');
+          setLoading(false);
+          return;
+        }
+      }
+
       const url = editingAcademicItem ? `/api/academic/${editingAcademicItem.id}` : '/api/academic';
       const method = editingAcademicItem ? 'PATCH' : 'POST';
       
@@ -718,7 +734,7 @@ export default function AdminDashboard() {
                 </div>
                 <div className="form-group">
                   <label>Upload Media (Video/Image) {editingPortfolioItem?.mediaUrl && <span className="optional-tag">(Upload to replace)</span>}</label>
-                  <input type="file" name="media" accept="video/*,image/*" />
+                  <input type="file" name="media" accept="video/*,image/*,application/pdf" />
                 </div>
                 <div className="form-actions-row">
                   <button type="submit" disabled={loading} className="submit-btn glow-on-hover" style={{ flex: 1 }}>
@@ -790,8 +806,11 @@ export default function AdminDashboard() {
                   <input type="text" name="authors" placeholder="John Doe, Jane Smith" defaultValue={editingAcademicItem?.authors || ''} />
                 </div>
                 <div className="form-group">
-                  <label>Link <span className="optional-tag">(optional)</span></label>
-                  <input type="url" name="link" placeholder="https://..." defaultValue={editingAcademicItem?.link || ''} />
+                  <label>Link or File <span className="optional-tag">(optional)</span></label>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                    <input type="url" name="link" placeholder="https://... (or upload file below)" defaultValue={editingAcademicItem?.link || ''} />
+                    <input type="file" name="linkFile" accept="application/pdf,image/*,video/*" />
+                  </div>
                 </div>
                 <div className="form-actions-row">
                   <button type="submit" disabled={loading} className="submit-btn glow-on-hover" style={{ flex: 1 }}>

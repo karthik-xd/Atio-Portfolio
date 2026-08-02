@@ -43,6 +43,8 @@ export default function PortfolioClient({ initialItems }: { initialItems: Item[]
               <div className="media-container">
                 {item.mediaUrl.match(/\.(mp4|webm|ogg)$/i) ? (
                   <video src={item.mediaUrl} controls className="media" />
+                ) : item.mediaUrl.match(/\.pdf$/i) ? (
+                  <iframe src={item.mediaUrl} className="media" style={{ width: '100%', minHeight: '300px', border: 'none', background: 'white' }} title={item.title} />
                 ) : (
                   <img src={item.mediaUrl} alt={item.title} className="media" />
                 )}
