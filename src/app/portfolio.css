@@ -251,6 +251,8 @@
 .card h3 {
   font-size: 1.5rem;
   margin-bottom: 0.75rem;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .card p {
@@ -258,6 +260,8 @@
   font-size: 0.9rem;
   margin-bottom: 1.5rem;
   flex-grow: 1;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .card-link {
